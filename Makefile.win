@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o Bruxo.o test.o
-LINKOBJ  = main.o Bruxo.o test.o
+OBJ      = main.o Bruxo.o
+LINKOBJ  = main.o Bruxo.o
 LIBS     = -L"F:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"F:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -29,6 +29,3 @@ main.o: main.c
 
 Bruxo.o: Bruxo.c
 	$(CC) -c Bruxo.c -o Bruxo.o $(CFLAGS)
-
-test.o: test.c
-	$(CC) -c test.c -o test.o $(CFLAGS)
