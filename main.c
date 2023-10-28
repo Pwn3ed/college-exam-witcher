@@ -67,11 +67,12 @@ void cadastrarBruxo() {
 
 void listarBruxos() {
 	int qtd = QuantidadeBruxos();
-	Bruxo* ptr;
-	ObterBruxoPeloCodigo(0, ptr);
-	printf("\n%d", ptr);
-	ptr[2].codigo = 2;
-	printf("\n%d", ptr[2].codigo);
+	Bruxo *bruxo;
+	ObterBruxoPeloIndice(0, &bruxo);
+//	printf("\n%d", ptr);
+//	ptr[2].codigo = 2;
+//	printf("\n%d", bruxo->codigo);
+	gets((*bruxo).codigo);
 
 //	Bruxo* bruxos = (Bruxo*) malloc(qtd * sizeof(Bruxo));	
 //	bruxos[0].codigo = 2;

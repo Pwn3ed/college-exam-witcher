@@ -34,7 +34,7 @@ int QuantidadeBruxos() {
 	return qtdBruxos;
 }
 int ObterBruxoPeloIndice(int indice, Bruxo* b) {
-	
+	*b = bruxos[indice];
 }
 int ObterBruxoPeloCodigo(int codigo, Bruxo* b) {
 	
