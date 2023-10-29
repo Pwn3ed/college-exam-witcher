@@ -3,6 +3,8 @@
 #include <string.h>
 
 #include "Bruxo.h"
+#include "Paciente.h"
+#include "Pocao.h"
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
@@ -45,44 +47,267 @@ void submenuTratamento() {
 }
 
 void cadastrarBruxo() {
-	Bruxo b1;
+	Bruxo bruxo;
 	
 	printf("\nDigite o codigo do bruxo: ");
-	scanf("%d", &b1.codigo);
+	scanf("%d", &bruxo.codigo);
 	
 	printf("\nDigite o nome do bruxo: ");
 	fflush(stdin);
-	scanf("%[^\n]s", &b1.nome);
+	scanf("%[^\n]s", &bruxo.nome);
 	
 	printf("\nDigite a especialidade do bruxo: ");
 	fflush(stdin);
-	scanf("%[^\n]s", &b1.especialidade);
+	scanf("%[^\n]s", &bruxo.especialidade);
 	
-	if (SalvarBruxo(&b1)) {
-		printf("Bruxo salvo com sucesso.");
+	if (SalvarBruxo(&bruxo)) {
+		printf("\nBruxo salvo com sucesso.");
 	} else {
-		printf("ERROR");
+		printf("\nERROR");
 	}
 }
 
 void listarBruxos() {
 	int qtd = QuantidadeBruxos();
-	Bruxo *bruxo;
-	ObterBruxoPeloIndice(0, &bruxo);
-//	printf("\n%d", ptr);
-//	ptr[2].codigo = 2;
-//	printf("\n%d", bruxo->codigo);
-	gets((*bruxo).codigo);
-
-//	Bruxo* bruxos = (Bruxo*) malloc(qtd * sizeof(Bruxo));	
-//	bruxos[0].codigo = 2;
-
-//	printf("\n%u, %d", bruxos, bruxos[0].codigo);
-//	Bruxo b[]
+	Bruxo bruxo[qtd];
 	
+	printf("\nBruxos:");
 	for (int i = 0; i < qtd; i++) {	
-//		ObterBruxoPeloIndice([i], ptr[i].codigo);
-//		printf("Bruxo %d - Nome: %s | Especialidade: %s\n", i, BruxoNome[i], BruxoEspecialidade[i]);
+		ObterBruxoPeloIndice(i, &bruxo);
+		printf("\nBruxo %d - Codigo: %d | Nome: %s | Especialidade: %s", i, bruxo->codigo, bruxo->nome, bruxo->especialidade);
+	}
+}
+
+void excluirBruxo() {
+	listarBruxos();
+	
+	int cod;
+	printf("\nDigite o codigo do bruxo: ");
+	scanf("%d", &cod);
+	
+	if (ApagarBruxoPeloCodigo(cod)) {
+		printf("Bruxo excluido com sucesso.");
+	} else {
+		printf("ERROR");
+	}
+}
+
+void alterarBruxo() {
+	listarBruxos();
+	
+	int cod;
+	printf("\nDigite o codigo do bruxo a ser alterado: ");
+	scanf("%d", &cod);
+	
+	Bruxo bruxo;
+	if (ObterBruxoPeloCodigo(cod, &bruxo)) {
+		printf("\nDigite o novo codigo do bruxo: ");
+		scanf("%d", &bruxo.codigo);
+		
+		printf("\nDigite o novo nome do bruxo: ");
+		fflush(stdin);
+		scanf("%[^\n]s", &bruxo.nome);
+		
+		printf("\nDigite a nova especialidade do bruxo: ");
+		fflush(stdin);
+		scanf("%[^\n]s", &bruxo.especialidade);
+		
+		if (AtualizarBruxo(cod, &bruxo)) {
+			printf("\nBruxo alterado com sucesso.");
+		} else {
+			printf("\nERROR");
+		}
+		
+	} else {
+		printf("ERROR");
+	}
+}
+
+
+void cadastrarPaciente() {
+	Paciente paciente;
+	
+	printf("\nDigite o codigo do paciente: ");
+	scanf("%d", &paciente.codigo);
+	
+	printf("\nDigite o nome do paciente: ");
+	fflush(stdin);
+	scanf("%[^\n]s", &paciente.nome);
+	
+	printf("\nDigite a idade do paciente: ");
+	scanf("%d", &paciente.idade);
+	
+	printf("\nDigite a altura do paciente: ");
+	scanf("%f", &paciente.altura);
+	
+	if (SalvarPaciente(&paciente)) {
+		printf("\nPaciente salvo com sucesso.");
+	} else {
+		printf("\nERROR");
+	}
+}
+
+void listarPacientes() {
+	int qtd = QuantidadePacientes();
+	Paciente paciente[qtd];
+	
+	printf("\nPacientes:");
+	for (int i = 0; i < qtd; i++) {	
+		ObterPacientePeloIndice(i, &paciente);
+		printf("\nPaciente %d - Codigo: %d | Nome: %s | Idade: %d | Altura: %.2f", i, paciente->codigo, paciente->nome, paciente->idade, paciente->altura);
+	}
+}
+
+void excluirPaciente() {
+	listarPacientes();
+	
+	int cod;
+	printf("\nDigite o codigo do paciente: ");
+	scanf("%d", &cod);
+	
+	if (ApagarPacientePeloCodigo(cod)) {
+		printf("Paciente excluido com sucesso.");
+	} else {
+		printf("ERROR");
+	}
+}
+
+void alterarPaciente() {
+	listarPacientes();
+	
+	int cod;
+	printf("\nDigite o codigo do paciente a ser alterado: ");
+	scanf("%d", &cod);
+	
+	Paciente paciente;
+	if (ObterPacientePeloCodigo(cod, &paciente)) {
+		printf("\nDigite o novo codigo do paciente: ");
+		scanf("%d", &paciente.codigo);
+		
+		printf("\nDigite o novo nome do paciente: ");
+		fflush(stdin);
+		scanf("%[^\n]s", &paciente.nome);
+		
+		printf("\nDigite a nova idade do paciente: ");
+		scanf("%d", &paciente.idade);
+		
+		printf("\nDigite a nova altura do paciente: ");
+		scanf("%f", &paciente.altura);
+		
+		if (AtualizarPaciente(cod, &paciente)) {
+			printf("\nPaciente alterado com sucesso.");
+		} else {
+			printf("\nERROR");
+		}
+		
+	} else {
+		printf("ERROR");
+	}
+}
+
+void cadastrarPocao() {
+	Pocao pocao;
+	
+	printf("\nDigite o codigo da pocao: ");
+	scanf("%d", &pocao.codigo);
+	
+	printf("\nDigite o nome da pocao: ");
+	fflush(stdin);
+	scanf("%[^\n]s", &pocao.nome);
+	
+	printf("\nDigite o tipo da pocao: ('Liquido' ou 'Comprimido'): ");
+	fflush(stdin);
+	char tipo[11];
+	scanf("%s", &tipo);
+	strcpy(pocao.tipo, tipo);
+
+	if (strcmp(tipo, "Liquido") == 0) {
+		if (SalvarPocao(&pocao)) {
+				printf("\nPocao salva com sucesso.");
+			} else {
+				printf("\nERROR");
+			}
+	}
+	else if (strcmp(tipo, "Comprimido") == 0) {
+		if (SalvarPocao(&pocao)) {
+				printf("\nPocao salva com sucesso.");
+			} else {
+				printf("\nERROR");
+			}
+	}
+	else {
+		printf("\nTipo de pocao invalido, tente novamente.");
+	}
+	
+}
+
+void listarPocoes() {
+	int qtd = QuantidadePocoes();
+	Pocao pocao[qtd];
+	
+	printf("\nPocoes:");
+	for (int i = 0; i < qtd; i++) {	
+		ObterPocaoPeloIndice(i, &pocao);
+		printf("\nPocao %d - Codigo: %d | Nome: %s | Tipo: %s", i, pocao->codigo, pocao->nome, pocao->tipo);
+	}
+}
+
+void excluirPocao() {
+	listarPocoes();
+	
+	int cod;
+	printf("\nDigite o codigo da pocao: ");
+	scanf("%d", &cod);
+	
+	if (ApagarPocaoPeloCodigo(cod)) {
+		printf("Pocao excluido com sucesso.");
+	} else {
+		printf("ERROR");
+	}
+}
+
+void alterarPocao() {
+	listarPocoes();
+	
+	int cod;
+	printf("\nDigite o codigo da pocao a ser alterada: ");
+	scanf("%d", &cod);
+	
+	Pocao pocao;
+	if (ObterPocaoPeloCodigo(cod, &pocao)) {
+		printf("\nDigite o novo codigo da pocao: ");
+		scanf("%d", &pocao.codigo);
+		
+		printf("\nDigite o novo nome da pocao: ");
+		fflush(stdin);
+		scanf("%[^\n]s", &pocao.nome);
+		
+		printf("\nDigite o novo tipo da pocao: ('Liquido' ou 'Comprimido'): ");
+		fflush(stdin);
+		char tipo[11];
+		scanf("%[^\n]s", &tipo);
+		strcpy(pocao.tipo, tipo);
+		
+	
+		if (strcmp(tipo, "Liquido") == 0) {
+			if (AtualizarPocao(cod, &pocao)) {
+				printf("\nPocao alterado com sucesso.");
+			} else {
+				printf("\nERROR");
+			}
+		}
+		else if (strcmp(tipo, "Comprimido") == 0) {
+			if (AtualizarPocao(cod, &pocao)) {
+				printf("\nPocao alterado com sucesso.");
+			} else {
+				printf("\nERROR");
+			}
+		}
+		else {
+			printf("\nTipo de pocao invalido, tente novamente.");
+		}		
+	} else {
+		printf("ERROR");
 	}
 }
 
@@ -90,6 +315,20 @@ int main() {
 	
 	if (InicializarBruxos()) {
 		printf("Bruxos Inicializados");
+	}
+	else {
+		printf("ERROR");
+	}
+	
+	if (InicializarPacientes()) {
+		printf("Pacientes Inicializados");
+	}
+	else {
+		printf("ERROR");
+	}
+	
+	if (InicializarPocoes()) {
+		printf("Pacientes Inicializados");
 	}
 	else {
 		printf("ERROR");
@@ -125,8 +364,10 @@ int main() {
         					cadastrarBruxo();
         					break;
         				case 3:
+        					alterarBruxo();
         					break;
         				case 4:
+        					excluirBruxo();
         					break;
 					}
 				} while (subopcao != 0);
@@ -145,12 +386,16 @@ int main() {
         					printf("\nSaindo do submenu ...");
         					break;
         				case 1:
+        					listarPacientes();
         					break;
         				case 2:
+        					cadastrarPaciente();
         					break;
         				case 3:
+        					alterarPaciente();
         					break;
         				case 4:
+        					excluirPaciente();
         					break;
 					}
 				} while (subopcao != 0);
@@ -169,12 +414,16 @@ int main() {
         					printf("\nSaindo do submenu ...");
         					break;
         				case 1:
+        					listarPocoes();
         					break;
         				case 2:
+        					cadastrarPocao();
         					break;
         				case 3:
+        					alterarPocao();
         					break;
         				case 4:
+        					excluirPocao();
         					break;
 					}
 				} while (subopcao != 0);

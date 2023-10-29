@@ -12,7 +12,7 @@ int SalvarBruxo(Bruxo* b);
 int QuantidadeBruxos();
 int ObterBruxoPeloIndice(int indice, Bruxo* b);
 int ObterBruxoPeloCodigo(int codigo, Bruxo* b);
-int AtualizarBruxo(Bruxo b);
+int AtualizarBruxo(int codigo, Bruxo* b);
 int ApagarBruxoPeloCodigo(int codigo);
 int ApagarBruxoPeloNome(char* nome);
 
