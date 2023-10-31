@@ -13,7 +13,7 @@ int SalvarPaciente(Paciente* p);
 int QuantidadePacientes();
 int ObterPacientePeloIndice(int indice, Paciente* p);
 int ObterPacientePeloCodigo(int codigo, Paciente* p);
-int AtualizarPaciente(int codigo, Paciente* p);
+int AtualizarPaciente(Paciente p);
 int ApagarPacientePeloCodigo(int codigo);
 int ApagarPacientePeloNome(char* nome);
 

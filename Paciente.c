@@ -62,17 +62,13 @@ int ObterPacientePeloCodigo(int codigo, Paciente* p) {
 			return 1;
 		}
 	}
-	
 	return 0;
 }
 
-int AtualizarPaciente(int codigo, Paciente* p) {
+int AtualizarPaciente(Paciente p) {
 	for (int i = 0; i < qtdPacientes; i++) {
-		if (pacientes[i].codigo == codigo) {
-			pacientes[i].codigo = p->codigo;
-			strcpy(pacientes[i].nome, p->nome);
-			pacientes[i].idade = p->idade;
-			pacientes[i].altura = p->altura;
+		if (pacientes[i].codigo == p.codigo) {
+			pacientes[i] = p;
 			return 1;
 		}
 	}

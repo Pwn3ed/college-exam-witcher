@@ -62,12 +62,10 @@ int ObterPocaoPeloCodigo(int codigo, Pocao* p) {
 	return 0;
 }
 
-int AtualizarPocao(int codigo, Pocao* p) {
+int AtualizarPocao(Pocao p) {
 	for (int i = 0; i < qtdPocoes; i++) {
-		if (pocoes[i].codigo == codigo) {
-			pocoes[i].codigo = p->codigo;
-			strcpy(pocoes[i].nome, p->nome);
-			strcpy(pocoes[i].tipo, p->tipo);
+		if (pocoes[i].codigo == p.codigo) {
+			pocoes[i] = p;
 			return 1;
 		}
 	}

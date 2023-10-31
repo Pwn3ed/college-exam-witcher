@@ -9,6 +9,9 @@ int qtdBruxos = 3; //DEBUG
 
 int InicializarBruxos() {
 	bruxos = (Bruxo*) malloc(MAX_BRUXOS * sizeof(Bruxo));
+	if (bruxos == NULL) {
+		return 0;
+	}
 	
 	// DEBUG
 	bruxos[0].codigo = 0;
@@ -37,6 +40,12 @@ int EncerraBruxos() {
 	return 1;
 }
 int SalvarBruxo(Bruxo* b) {
+	if (qtdBruxos == MAX_BRUXOS) {
+		printf("ta lotado mas vou aumentar +5 pra ti");
+		MAX_BRUXOS +=5;
+		bruxos = (Bruxo*) realloc(bruxos, MAX_BRUXOS * sizeof(Bruxo));
+	}
+	
 	if (qtdBruxos < MAX_BRUXOS) {
 		bruxos[qtdBruxos].codigo = b->codigo;
 		strcpy(bruxos[qtdBruxos].nome, b->nome);
@@ -45,6 +54,7 @@ int SalvarBruxo(Bruxo* b) {
 		qtdBruxos++;
 		return 1;	
 	}
+	
 	return 0;
 }
 int QuantidadeBruxos() {
@@ -59,15 +69,12 @@ int ObterBruxoPeloCodigo(int codigo, Bruxo* b) {
 			return 1;
 		}
 	}
-	
 	return 0;
 }
-int AtualizarBruxo(int codigo, Bruxo* b) {
+int AtualizarBruxo(Bruxo b) {
 	for (int i = 0; i < qtdBruxos; i++) {
-		if (bruxos[i].codigo == codigo) {
-			bruxos[i].codigo = b->codigo;
-			strcpy(bruxos[i].nome, b->nome);
-			strcpy(bruxos[i].especialidade, b->especialidade);
+		if (bruxos[i].codigo == b.codigo) {
+			bruxos[i] = b;
 			return 1;
 		}
 	}

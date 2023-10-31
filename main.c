@@ -95,34 +95,24 @@ void excluirBruxo() {
 void alterarBruxo() {
 	listarBruxos();
 	
-	int cod;
-	printf("\nDigite o codigo do bruxo a ser alterado: ");
-	scanf("%d", &cod);
-	
 	Bruxo bruxo;
-	if (ObterBruxoPeloCodigo(cod, &bruxo)) {
-		printf("\nDigite o novo codigo do bruxo: ");
-		scanf("%d", &bruxo.codigo);
-		
-		printf("\nDigite o novo nome do bruxo: ");
-		fflush(stdin);
-		scanf("%[^\n]s", &bruxo.nome);
-		
-		printf("\nDigite a nova especialidade do bruxo: ");
-		fflush(stdin);
-		scanf("%[^\n]s", &bruxo.especialidade);
-		
-		if (AtualizarBruxo(cod, &bruxo)) {
-			printf("\nBruxo alterado com sucesso.");
-		} else {
-			printf("\nERROR");
-		}
-		
+	printf("\nDigite o codigo do bruxo a ser alterado: ");
+	scanf("%d", &bruxo.codigo);
+	
+	printf("\nDigite o novo nome do bruxo: ");
+	fflush(stdin);
+	scanf("%[^\n]s", &bruxo.nome);
+	
+	printf("\nDigite a nova especialidade do bruxo: ");
+	fflush(stdin);
+	scanf("%[^\n]s", &bruxo.especialidade);
+	
+	if (AtualizarBruxo(bruxo)) {
+		printf("\nBruxo alterado com sucesso.");
 	} else {
-		printf("ERROR");
+		printf("\nERROR");
 	}
 }
-
 
 void cadastrarPaciente() {
 	Paciente paciente;
@@ -175,33 +165,24 @@ void excluirPaciente() {
 void alterarPaciente() {
 	listarPacientes();
 	
-	int cod;
-	printf("\nDigite o codigo do paciente a ser alterado: ");
-	scanf("%d", &cod);
-	
 	Paciente paciente;
-	if (ObterPacientePeloCodigo(cod, &paciente)) {
-		printf("\nDigite o novo codigo do paciente: ");
-		scanf("%d", &paciente.codigo);
-		
-		printf("\nDigite o novo nome do paciente: ");
-		fflush(stdin);
-		scanf("%[^\n]s", &paciente.nome);
-		
-		printf("\nDigite a nova idade do paciente: ");
-		scanf("%d", &paciente.idade);
-		
-		printf("\nDigite a nova altura do paciente: ");
-		scanf("%f", &paciente.altura);
-		
-		if (AtualizarPaciente(cod, &paciente)) {
-			printf("\nPaciente alterado com sucesso.");
-		} else {
-			printf("\nERROR");
-		}
-		
+	printf("\nDigite o codigo do paciente a ser alterado: ");
+	scanf("%d", &paciente.codigo);
+	
+	printf("\nDigite o novo nome do paciente: ");
+	fflush(stdin);
+	scanf("%[^\n]s", &paciente.nome);
+	
+	printf("\nDigite a nova idade do paciente: ");
+	scanf("%d", &paciente.idade);
+	
+	printf("\nDigite a nova altura do paciente: ");
+	scanf("%f", &paciente.altura);
+	
+	if (AtualizarPaciente(paciente)) {
+		printf("\nPaciente alterado com sucesso.");
 	} else {
-		printf("ERROR");
+		printf("\nERROR");
 	}
 }
 
@@ -269,46 +250,29 @@ void excluirPocao() {
 void alterarPocao() {
 	listarPocoes();
 	
-	int cod;
-	printf("\nDigite o codigo da pocao a ser alterada: ");
-	scanf("%d", &cod);
-	
 	Pocao pocao;
-	if (ObterPocaoPeloCodigo(cod, &pocao)) {
-		printf("\nDigite o novo codigo da pocao: ");
-		scanf("%d", &pocao.codigo);
-		
-		printf("\nDigite o novo nome da pocao: ");
-		fflush(stdin);
-		scanf("%[^\n]s", &pocao.nome);
-		
-		printf("\nDigite o novo tipo da pocao: ('Liquido' ou 'Comprimido'): ");
-		fflush(stdin);
-		char tipo[11];
-		scanf("%[^\n]s", &tipo);
-		strcpy(pocao.tipo, tipo);
-		
+	printf("\nDigite o codigo da pocao a ser alterada: ");
+	scanf("%d", &pocao.codigo);
 	
-		if (strcmp(tipo, "Liquido") == 0) {
-			if (AtualizarPocao(cod, &pocao)) {
-				printf("\nPocao alterado com sucesso.");
-			} else {
-				printf("\nERROR");
-			}
+	printf("\nDigite o novo nome da pocao: ");
+	fflush(stdin);
+	scanf("%[^\n]s", &pocao.nome);
+	
+	printf("\nDigite o novo tipo da pocao: ('Liquido' ou 'Comprimido'): ");
+	fflush(stdin);
+	scanf("%[^\n]s", &pocao.tipo);
+	
+
+	if ((strcmp(pocao.tipo, "Liquido") == 0) || (strcmp(pocao.tipo, "Comprimido") == 0)) {
+		if (AtualizarPocao(pocao)) {
+			printf("\nPocao alterado com sucesso.");
+		} else {
+			printf("\nERROR");
 		}
-		else if (strcmp(tipo, "Comprimido") == 0) {
-			if (AtualizarPocao(cod, &pocao)) {
-				printf("\nPocao alterado com sucesso.");
-			} else {
-				printf("\nERROR");
-			}
-		}
-		else {
-			printf("\nTipo de pocao invalido, tente novamente.");
-		}		
-	} else {
-		printf("ERROR");
 	}
+	else {
+		printf("\nTipo de pocao invalido, tente novamente.");
+	}		
 }
 
 int main() {
