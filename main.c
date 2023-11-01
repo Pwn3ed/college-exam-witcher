@@ -277,26 +277,13 @@ void alterarPocao() {
 
 int main() {
 	
-	if (InicializarBruxos()) {
-		printf("Bruxos Inicializados");
-	}
-	else {
-		printf("ERROR");
-	}
-	
-	if (InicializarPacientes()) {
-		printf("Pacientes Inicializados");
-	}
-	else {
-		printf("ERROR");
-	}
-	
-	if (InicializarPocoes()) {
-		printf("Pacientes Inicializados");
-	}
-	else {
-		printf("ERROR");
-	}
+	if (!InicializarBruxos())
+		return;
+	if (!InicializarPacientes())
+		return;
+	if (!InicializarPocoes())
+		return;
+
 	
     int opcao, subopcao;
     do {
@@ -407,11 +394,14 @@ int main() {
         					break;
         				case 1:
         					break;
+        					
         				case 2:
         					break;
         				case 3:
         					break;
         				case 4:
+        					break;
+        				case 5:
         					break;
 					}
 				} while (subopcao != 0);
@@ -425,6 +415,10 @@ int main() {
         printf("\n");
         
     } while (opcao != 0);
+    
+    EncerraBruxos();
+    EncerraPacientes();
+    EncerraPocoes();
     
     return 0;
 }

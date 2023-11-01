@@ -41,11 +41,9 @@ int EncerraBruxos() {
 }
 int SalvarBruxo(Bruxo* b) {
 	if (qtdBruxos == MAX_BRUXOS) {
-		printf("ta lotado mas vou aumentar +5 pra ti");
-		MAX_BRUXOS +=5;
+		MAX_BRUXOS += 5;
 		bruxos = (Bruxo*) realloc(bruxos, MAX_BRUXOS * sizeof(Bruxo));
 	}
-	
 	if (qtdBruxos < MAX_BRUXOS) {
 		bruxos[qtdBruxos].codigo = b->codigo;
 		strcpy(bruxos[qtdBruxos].nome, b->nome);
@@ -54,7 +52,6 @@ int SalvarBruxo(Bruxo* b) {
 		qtdBruxos++;
 		return 1;	
 	}
-	
 	return 0;
 }
 int QuantidadeBruxos() {

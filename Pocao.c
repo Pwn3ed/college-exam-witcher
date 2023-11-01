@@ -33,6 +33,10 @@ int EncerraPocoes() {
 }
 
 int SalvarPocao(Pocao* p) {
+	if (qtdPocoes == MAX_POCOES) {
+		MAX_POCOES += 5;
+		pocoes = (Pocao*) realloc(pocoes, MAX_POCOES * sizeof(Pocao));
+	}
 	if (qtdPocoes < MAX_POCOES) {
 		pocoes[qtdPocoes].codigo = p->codigo;
 		strcpy(pocoes[qtdPocoes].nome, p->nome);

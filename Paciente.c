@@ -36,6 +36,10 @@ int EncerraPacientes() {
 }
 
 int SalvarPaciente(Paciente* p) {
+	if (qtdPacientes == MAX_PACIENTES) {
+		MAX_PACIENTES += 5;
+		pacientes = (Paciente*) realloc(pacientes, MAX_PACIENTES * sizeof(Paciente));
+	}
 	if (qtdPacientes < MAX_PACIENTES) {
 		pacientes[qtdPacientes].codigo = p->codigo;
 		strcpy(pacientes[qtdPacientes].nome, p->nome);

@@ -4,8 +4,8 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = main.o Bruxo.o Paciente.o Pocao.o
-LINKOBJ  = main.o Bruxo.o Paciente.o Pocao.o
+OBJ      = main.o Bruxo.o Paciente.o Pocao.o Tratamento.o
+LINKOBJ  = main.o Bruxo.o Paciente.o Pocao.o Tratamento.o
 LIBS     = -L"C:/ProgramFiles/Dev-Cpp/MinGW64/lib" -L"C:/ProgramFiles/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
 INCS     = -I"C:/ProgramFiles/Dev-Cpp/MinGW64/include" -I"C:/ProgramFiles/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/ProgramFiles/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/ProgramFiles/Dev-Cpp/MinGW64/include" -I"C:/ProgramFiles/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/ProgramFiles/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/ProgramFiles/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -35,3 +35,6 @@ Paciente.o: Paciente.c
 
 Pocao.o: Pocao.c
 	$(CC) -c Pocao.c -o Pocao.o $(CFLAGS)
+
+Tratamento.o: Tratamento.c
+	$(CC) -c Tratamento.c -o Tratamento.o $(CFLAGS)
