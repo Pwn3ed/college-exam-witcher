@@ -8,3 +8,7 @@ typedef struct {
 	int dosagem;
 }Tratamento;
 
+int InicializarTratamentos();
+int EncerraTratamentos();
+int ObterTratamentoPeloCodigo(int codigo, Tratamento *tratamento);
+int salvarTratamento(Tratamento tratamento);

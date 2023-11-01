@@ -35,6 +35,7 @@ int InicializarBruxos() {
 //	}
 	return 1;
 }
+
 int EncerraBruxos() {
 	free(bruxos);
 	return 1;

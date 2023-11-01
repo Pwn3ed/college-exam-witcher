@@ -5,6 +5,7 @@
 #include "Bruxo.h"
 #include "Paciente.h"
 #include "Pocao.h"
+#include "Tratamento.h"
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
@@ -275,6 +276,71 @@ void alterarPocao() {
 	}		
 }
 
+void listarTratamentosDoPaciente() {
+	int codigo = 0;
+	
+	printf("\nDigite o codigo do paciente: ");
+	fflush(stdin);
+	scanf("%d", &codigo);
+	
+	Tratamento *tratamento;
+	if (ObterTratamentoPeloCodigo(codigo, &tratamento)) {
+		printf("%d", tratamento->codigo);
+	}
+	
+//	if (codigo >= 0 && codigo < TRATAMENTOS) {
+//		for (int i = 0; i < TRATAMENTOS; i++) {
+//			if (codigo == TratamentoPaciente[i]) {
+//				printf("Ola %s! O bruxo %s receitou a pocao %s tipo %s, em dosagens de %d vezes por %d dias.", PacienteNome[getPacienteNomeById(codigo)], BruxoNome[getBruxoNomeById(TratamentoBruxo[i])], PocaoNome[getPocaoNomeById(TratamentoMedicamento[i])], PocaoTipo[getPocaoNomeById(TratamentoMedicamento[i])], TratamentoDosagem[i], TratamentoDias[i]);
+//			}
+//		}
+//		printf("\nPaciente nao encontrado!");
+//	}
+//	else {
+//		printf("\nPaciente nao encontrado!");
+//	}
+}
+
+void listarTratamentosDoBruxo() {
+	
+}
+
+void iniciarTratamento() {
+	
+	Tratamento tratamento;
+	
+	printf("\nDigite o codigo do bruxo: ");
+	fflush(stdin);
+	scanf("%d", &tratamento.bruxo);
+	
+	printf("\nDigite o codigo do paciente: ");
+	fflush(stdin);
+	scanf("%d", &tratamento.paciente);
+	
+	printf("\nDigite o codigo do medicamento: ");
+	fflush(stdin);
+	scanf("%d", &tratamento.medicamento);
+	
+	printf("\nDigite quantos dias: ");
+	fflush(stdin);
+	scanf("%d", &tratamento.dias);
+	
+	printf("\nDigite qual a dosagem: ");
+	fflush(stdin);
+	scanf("%d", &tratamento.dosagem);
+	
+//	salvarTratamento(tratamento);
+	
+}
+
+void ampliarTratamento() {
+	
+}
+
+void excluirTratamento() {
+	
+}
+
 int main() {
 	
 	if (!InicializarBruxos())
@@ -283,8 +349,9 @@ int main() {
 		return;
 	if (!InicializarPocoes())
 		return;
-
-	
+	if (!InicializarTratamentos())
+		return;
+		
     int opcao, subopcao;
     do {
         menu();
@@ -393,15 +460,19 @@ int main() {
         					printf("\nSaindo do submenu ...");
         					break;
         				case 1:
+        					listarTratamentosDoPaciente();
         					break;
-        					
         				case 2:
+        					listarTratamentosDoBruxo();
         					break;
         				case 3:
+        					iniciarTratamento();
         					break;
         				case 4:
+        					ampliarTratamento();
         					break;
         				case 5:
+        					excluirTratamento();
         					break;
 					}
 				} while (subopcao != 0);
@@ -419,6 +490,7 @@ int main() {
     EncerraBruxos();
     EncerraPacientes();
     EncerraPocoes();
+    EncerraTratamentos();
     
     return 0;
 }
