@@ -8,7 +8,7 @@ typedef struct {
 
 int InicializarBruxos();
 int EncerraBruxos();
-int SalvarBruxo(Bruxo* b);
+int SalvarBruxo(Bruxo b);
 int QuantidadeBruxos();
 int ObterBruxoPeloIndice(int indice, Bruxo* b);
 int ObterBruxoPeloCodigo(int codigo, Bruxo* b);

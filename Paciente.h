@@ -9,7 +9,7 @@ typedef struct {
 
 int InicializarPacientes();
 int EncerraPacientes();
-int SalvarPaciente(Paciente* p);
+int SalvarPaciente(Paciente p);
 int QuantidadePacientes();
 int ObterPacientePeloIndice(int indice, Paciente* p);
 int ObterPacientePeloCodigo(int codigo, Paciente* p);

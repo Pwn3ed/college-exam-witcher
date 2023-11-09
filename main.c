@@ -283,22 +283,32 @@ void listarTratamentosDoPaciente() {
 	fflush(stdin);
 	scanf("%d", &codigo);
 	
-	Tratamento *tratamento;
+	Tratamento tratamento;
 	if (ObterTratamentoPeloCodigo(codigo, &tratamento)) {
-		printf("%d", tratamento->codigo);
+		
+		Paciente paciente;	
+		if (ObterPacientePeloCodigo(tratamento.paciente, &paciente)) {
+			printf("\nopa: %s", paciente.nome);
+		} else {
+			printf("\nerror");
+		}
+		
+		Bruxo bruxo;	
+		if (ObterBruxoPeloCodigo(tratamento.bruxo, &bruxo)) {
+			printf("\nopa: %s", bruxo.nome);
+		} else {
+			printf("\nerror");
+		}
+		
+		Pocao pocao;
+		if (ObterPocaoPeloCodigo(tratamento.medicamento, &pocao)) {
+			printf("\nopa: %s", pocao.nome);
+		} else {
+			printf("\nerror");
+		}
+		
+		printf("\nOla %s! O bruxo %s receitou a pocao %s em dosagens de %d vezes por %d dias.", paciente.nome, bruxo.nome, pocao.nome, tratamento.dosagem, tratamento.dias);
 	}
-	
-//	if (codigo >= 0 && codigo < TRATAMENTOS) {
-//		for (int i = 0; i < TRATAMENTOS; i++) {
-//			if (codigo == TratamentoPaciente[i]) {
-//				printf("Ola %s! O bruxo %s receitou a pocao %s tipo %s, em dosagens de %d vezes por %d dias.", PacienteNome[getPacienteNomeById(codigo)], BruxoNome[getBruxoNomeById(TratamentoBruxo[i])], PocaoNome[getPocaoNomeById(TratamentoMedicamento[i])], PocaoTipo[getPocaoNomeById(TratamentoMedicamento[i])], TratamentoDosagem[i], TratamentoDias[i]);
-//			}
-//		}
-//		printf("\nPaciente nao encontrado!");
-//	}
-//	else {
-//		printf("\nPaciente nao encontrado!");
-//	}
 }
 
 void listarTratamentosDoBruxo() {
@@ -308,6 +318,10 @@ void listarTratamentosDoBruxo() {
 void iniciarTratamento() {
 	
 	Tratamento tratamento;
+	
+	printf("\nDigite o codigo do tratamento: ");
+	fflush(stdin);
+	scanf("%d", &tratamento.codigo);
 	
 	printf("\nDigite o codigo do bruxo: ");
 	fflush(stdin);
@@ -329,7 +343,11 @@ void iniciarTratamento() {
 	fflush(stdin);
 	scanf("%d", &tratamento.dosagem);
 	
-//	salvarTratamento(tratamento);
+	if (salvarTratamento(&tratamento)) {
+		printf("\nDeu certo!!!");
+	} else {
+		printf("\nDeu errado guys O.O");
+	}
 	
 }
 

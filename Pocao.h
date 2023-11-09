@@ -8,7 +8,7 @@ typedef struct {
 
 int InicializarPocoes();
 int EncerraPocoes();
-int SalvarPocao(Pocao* p);
+int SalvarPocao(Pocao p);
 int QuantidadePocoes();
 int ObterPocaoPeloIndice(int indice, Pocao* p);
 int ObterPocaoPeloCodigo(int codigo, Pocao* p);

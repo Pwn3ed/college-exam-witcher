@@ -40,35 +40,39 @@ int EncerraBruxos() {
 	free(bruxos);
 	return 1;
 }
-int SalvarBruxo(Bruxo* b) {
+
+int SalvarBruxo(Bruxo b) {
 	if (qtdBruxos == MAX_BRUXOS) {
 		MAX_BRUXOS += 5;
 		bruxos = (Bruxo*) realloc(bruxos, MAX_BRUXOS * sizeof(Bruxo));
 	}
 	if (qtdBruxos < MAX_BRUXOS) {
-		bruxos[qtdBruxos].codigo = b->codigo;
-		strcpy(bruxos[qtdBruxos].nome, b->nome);
-		strcpy(bruxos[qtdBruxos].especialidade, b->especialidade);
+		bruxos[qtdBruxos] = b;
 		
 		qtdBruxos++;
 		return 1;	
 	}
 	return 0;
 }
+
 int QuantidadeBruxos() {
 	return qtdBruxos;
 }
+
 int ObterBruxoPeloIndice(int indice, Bruxo* b) {
 	*b = bruxos[indice];
 }
+
 int ObterBruxoPeloCodigo(int codigo, Bruxo* b) {
 	for (int i = 0; i < qtdBruxos; i++) {
-		if (b[i].codigo == codigo) {
+		if (bruxos[i].codigo == codigo) {
+			*b = bruxos[i];
 			return 1;
 		}
 	}
 	return 0;
 }
+
 int AtualizarBruxo(Bruxo b) {
 	for (int i = 0; i < qtdBruxos; i++) {
 		if (bruxos[i].codigo == b.codigo) {
@@ -78,13 +82,12 @@ int AtualizarBruxo(Bruxo b) {
 	}
 	return 0;
 }
+
 int ApagarBruxoPeloCodigo(int codigo) {
 	for (int i = 0; i < qtdBruxos; i++) {
 		if (bruxos[i].codigo == codigo) {
 			for (int j = i; j <qtdBruxos-1; j++) {
-				bruxos[j].codigo = bruxos[j+1].codigo;
-				strcpy(bruxos[j].nome, bruxos[j+1].nome);
-				strcpy(bruxos[j].especialidade, bruxos[j+1].especialidade);
+				bruxos[j] = bruxos[j+1];
 			}
 			qtdBruxos--;
 			return 1;
@@ -92,6 +95,7 @@ int ApagarBruxoPeloCodigo(int codigo) {
 	}
 	return 0;
 }
+
 int ApagarBruxoPeloNome(char* nome) {
 	
 }

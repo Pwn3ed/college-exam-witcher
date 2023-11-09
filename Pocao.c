@@ -9,18 +9,21 @@ int qtdPocoes = 3; //DEBUG
 
 int InicializarPocoes() {
 	pocoes = (Pocao*) malloc(MAX_POCOES * sizeof(Pocao));
+	if (pocoes == NULL) {
+		return 0;
+	}
 	
 	// DEBUG
 	pocoes[0].codigo = 0;
-	strcpy(pocoes[0].nome, "Diego");
+	strcpy(pocoes[0].nome, "Cura");
 	strcpy(pocoes[0].tipo, "Liquido");
 	
 	pocoes[1].codigo = 1;
-	strcpy(pocoes[1].nome, "Leonardo");
+	strcpy(pocoes[1].nome, "Sono");
 	strcpy(pocoes[1].tipo, "Comprimido");
 	
 	pocoes[2].codigo = 2;
-	strcpy(pocoes[2].nome, "Pablo");
+	strcpy(pocoes[2].nome, "Vigor");
 	strcpy(pocoes[2].tipo, "Comprimido");
 	// DEBUG
 
@@ -32,15 +35,13 @@ int EncerraPocoes() {
 	return 1;
 }
 
-int SalvarPocao(Pocao* p) {
+int SalvarPocao(Pocao p) {
 	if (qtdPocoes == MAX_POCOES) {
 		MAX_POCOES += 5;
 		pocoes = (Pocao*) realloc(pocoes, MAX_POCOES * sizeof(Pocao));
 	}
 	if (qtdPocoes < MAX_POCOES) {
-		pocoes[qtdPocoes].codigo = p->codigo;
-		strcpy(pocoes[qtdPocoes].nome, p->nome);
-		strcpy(pocoes[qtdPocoes].tipo, p->tipo);
+		pocoes[qtdPocoes] = p;
 		
 		qtdPocoes++;
 		return 1;	
@@ -58,7 +59,8 @@ int ObterPocaoPeloIndice(int indice, Pocao* p) {
 
 int ObterPocaoPeloCodigo(int codigo, Pocao* p) {
 	for (int i = 0; i < qtdPocoes; i++) {
-		if (p[i].codigo == codigo) {
+		if (pocoes[i].codigo == codigo) {
+			*p = pocoes[i];
 			return 1;
 		}
 	}
@@ -80,9 +82,10 @@ int ApagarPocaoPeloCodigo(int codigo) {
 	for (int i = 0; i < qtdPocoes; i++) {
 		if (pocoes[i].codigo == codigo) {
 			for (int j = i; j <qtdPocoes-1; j++) {
-				pocoes[j].codigo = pocoes[j+1].codigo;
-				strcpy(pocoes[j].nome, pocoes[j+1].nome);
-				strcpy(pocoes[j].tipo, pocoes[j+1].tipo);
+				pocoes[j] = pocoes[j+1];
+//				pocoes[j].codigo = pocoes[j+1].codigo;
+//				strcpy(pocoes[j].nome, pocoes[j+1].nome);
+//				strcpy(pocoes[j].tipo, pocoes[j+1].tipo);
 			}
 			qtdPocoes--;
 			return 1;

@@ -10,5 +10,5 @@ typedef struct {
 
 int InicializarTratamentos();
 int EncerraTratamentos();
-int ObterTratamentoPeloCodigo(int codigo, Tratamento *tratamento);
-int salvarTratamento(Tratamento tratamento);
+int salvarTratamento(Tratamento t);
+int ObterTratamentoPeloCodigo(int codigo, Tratamento *t);
