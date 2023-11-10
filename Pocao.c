@@ -55,6 +55,7 @@ int QuantidadePocoes() {
 
 int ObterPocaoPeloIndice(int indice, Pocao* p) {
 	*p = pocoes[indice];
+	return 1;
 }
 
 int ObterPocaoPeloCodigo(int codigo, Pocao* p) {

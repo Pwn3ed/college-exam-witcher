@@ -61,7 +61,7 @@ void cadastrarBruxo() {
 	fflush(stdin);
 	scanf("%[^\n]s", &bruxo.especialidade);
 	
-	if (SalvarBruxo(&bruxo)) {
+	if (SalvarBruxo(bruxo)) {
 		printf("\nBruxo salvo com sucesso.");
 	} else {
 		printf("\nERROR");
@@ -131,7 +131,7 @@ void cadastrarPaciente() {
 	printf("\nDigite a altura do paciente: ");
 	scanf("%f", &paciente.altura);
 	
-	if (SalvarPaciente(&paciente)) {
+	if (SalvarPaciente(paciente)) {
 		printf("\nPaciente salvo com sucesso.");
 	} else {
 		printf("\nERROR");
@@ -204,18 +204,18 @@ void cadastrarPocao() {
 	strcpy(pocao.tipo, tipo);
 
 	if (strcmp(tipo, "Liquido") == 0) {
-		if (SalvarPocao(&pocao)) {
-				printf("\nPocao salva com sucesso.");
-			} else {
-				printf("\nERROR");
-			}
+		if (SalvarPocao(pocao)) {
+			printf("\nPocao salva com sucesso.");
+		} else {
+			printf("\nERROR");
+		}
 	}
 	else if (strcmp(tipo, "Comprimido") == 0) {
-		if (SalvarPocao(&pocao)) {
-				printf("\nPocao salva com sucesso.");
-			} else {
-				printf("\nERROR");
-			}
+		if (SalvarPocao(pocao)) {
+			printf("\nPocao salva com sucesso.");
+		} else {
+			printf("\nERROR");
+		}
 	}
 	else {
 		printf("\nTipo de pocao invalido, tente novamente.");
@@ -277,42 +277,87 @@ void alterarPocao() {
 }
 
 void listarTratamentosDoPaciente() {
-	int codigo = 0;
+	int qtd = QuantidadeTratamentos();
+	Tratamento tratamento;
+	
+	int codigo;
 	
 	printf("\nDigite o codigo do paciente: ");
 	fflush(stdin);
 	scanf("%d", &codigo);
 	
-	Tratamento tratamento;
-	if (ObterTratamentoPeloCodigo(codigo, &tratamento)) {
-		
-		Paciente paciente;	
-		if (ObterPacientePeloCodigo(tratamento.paciente, &paciente)) {
-			printf("\nopa: %s", paciente.nome);
+	for (int i = 0; i < qtd; i++) {
+		ObterTratamentoPeloIndice(i, &tratamento);
+		if (tratamento.paciente == codigo) {
+			
+			Paciente paciente;	
+			if (ObterPacientePeloCodigo(tratamento.paciente, &paciente)) {
+	//			printf("\nDEBUG: %s", paciente.nome);
+			} else {
+				printf("\nerror");
+			}
+			
+			Bruxo bruxo;	
+			if (ObterBruxoPeloCodigo(tratamento.bruxo, &bruxo)) {
+	//			printf("\nDEBUG: %s", bruxo.nome);
+			} else {
+				printf("\nerror");
+			}
+			
+			Pocao pocao;
+			if (ObterPocaoPeloCodigo(tratamento.medicamento, &pocao)) {
+	//			printf("\nDEBUG: %s", pocao.nome);
+			} else {
+				printf("\nerror");
+			}
+			
+			printf("\nOla %s! O bruxo %s receitou a pocao %s em dosagens de %d vezes por %d dias.", paciente.nome, bruxo.nome, pocao.nome, tratamento.dosagem, tratamento.dias);
 		} else {
 			printf("\nerror");
 		}
-		
-		Bruxo bruxo;	
-		if (ObterBruxoPeloCodigo(tratamento.bruxo, &bruxo)) {
-			printf("\nopa: %s", bruxo.nome);
-		} else {
-			printf("\nerror");
-		}
-		
-		Pocao pocao;
-		if (ObterPocaoPeloCodigo(tratamento.medicamento, &pocao)) {
-			printf("\nopa: %s", pocao.nome);
-		} else {
-			printf("\nerror");
-		}
-		
-		printf("\nOla %s! O bruxo %s receitou a pocao %s em dosagens de %d vezes por %d dias.", paciente.nome, bruxo.nome, pocao.nome, tratamento.dosagem, tratamento.dias);
 	}
 }
 
 void listarTratamentosDoBruxo() {
+	int qtd = QuantidadeTratamentos();
+	Tratamento tratamento;
 	
+	int codigo;
+	
+	printf("\nDigite o codigo do bruxo: ");
+	fflush(stdin);
+	scanf("%d", &codigo);
+	
+	for (int i = 0; i < qtd; i++) {
+		ObterTratamentoPeloIndice(i, &tratamento);
+		if (tratamento.bruxo == codigo) {
+			
+			Paciente paciente;	
+			if (ObterPacientePeloCodigo(tratamento.paciente, &paciente)) {
+	//			printf("\nDEBUG: %s", paciente.nome);
+			} else {
+				printf("\nerror");
+			}
+			
+			Bruxo bruxo;	
+			if (ObterBruxoPeloCodigo(tratamento.bruxo, &bruxo)) {
+	//			printf("\nDEBUG: %s", bruxo.nome);
+			} else {
+				printf("\nerror");
+			}
+			
+			Pocao pocao;
+			if (ObterPocaoPeloCodigo(tratamento.medicamento, &pocao)) {
+	//			printf("\nDEBUG: %s", pocao.nome);
+			} else {
+				printf("\nerror");
+			}
+			
+			printf("Tratamento %d - Bruxo: %s | Paciente: %s | Medicamento: %s | Dias: %d | Dosagem: %d | \n", i, bruxo.nome, paciente.nome, pocao.nome, tratamento.dias, tratamento.dosagem);
+		} else {
+			printf("\nerror");
+		}
+	}
 }
 
 void iniciarTratamento() {
@@ -343,10 +388,10 @@ void iniciarTratamento() {
 	fflush(stdin);
 	scanf("%d", &tratamento.dosagem);
 	
-	if (salvarTratamento(&tratamento)) {
-		printf("\nDeu certo!!!");
+	if (salvarTratamento(tratamento)) {
+//		printf("\nDEBUG: Deu certo!!!");
 	} else {
-		printf("\nDeu errado guys O.O");
+		printf("\nerror");
 	}
 	
 }

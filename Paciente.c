@@ -58,6 +58,7 @@ int QuantidadePacientes() {
 
 int ObterPacientePeloIndice(int indice, Paciente* p) {
 	*p = pacientes[indice];
+	return 1;
 }
 
 int ObterPacientePeloCodigo(int codigo, Paciente* p) {
