@@ -87,9 +87,9 @@ void excluirBruxo() {
 	scanf("%d", &cod);
 	
 	if (ApagarBruxoPeloCodigo(cod)) {
-		printf("Bruxo excluido com sucesso.");
+		printf("\nBruxo excluido com sucesso.");
 	} else {
-		printf("ERROR");
+		printf("\nERROR");
 	}
 }
 
@@ -157,7 +157,7 @@ void excluirPaciente() {
 	scanf("%d", &cod);
 	
 	if (ApagarPacientePeloCodigo(cod)) {
-		printf("Paciente excluido com sucesso.");
+		printf("\nPaciente excluido com sucesso.");
 	} else {
 		printf("ERROR");
 	}
@@ -242,7 +242,7 @@ void excluirPocao() {
 	scanf("%d", &cod);
 	
 	if (ApagarPocaoPeloCodigo(cod)) {
-		printf("Pocao excluido com sucesso.");
+		printf("\nPocao excluido com sucesso.");
 	} else {
 		printf("ERROR");
 	}
@@ -353,7 +353,7 @@ void listarTratamentosDoBruxo() {
 				printf("\nerror");
 			}
 			
-			printf("Tratamento %d - Bruxo: %s | Paciente: %s | Medicamento: %s | Dias: %d | Dosagem: %d | \n", i, bruxo.nome, paciente.nome, pocao.nome, tratamento.dias, tratamento.dosagem);
+			printf("\nTratamento %d - Bruxo: %s | Paciente: %s | Medicamento: %s | Dias: %d | Dosagem: %d | \n", i, bruxo.nome, paciente.nome, pocao.nome, tratamento.dias, tratamento.dosagem);
 		} else {
 			printf("\nerror");
 		}
@@ -397,11 +397,45 @@ void iniciarTratamento() {
 }
 
 void ampliarTratamento() {
+	int qtd = QuantidadeTratamentos();
+	Tratamento tratamento;
+	
+	int codigo;
+	printf("\nDigite o codigo do paciente: ");
+	fflush(stdin);
+	scanf("%d", &codigo);
+	
+	for (int i = 0; i < qtd; i++) {
+		ObterTratamentoPeloIndice(i, &tratamento);
+		if (tratamento.paciente == codigo) {
+			printf("\nAlterar para quantos dias?: ");
+			fflush(stdin);
+			scanf("%d", &tratamento.dias);
+			
+			printf("\nAlterar para quantas dosagens?: ");
+			fflush(stdin);
+			scanf("%d", &tratamento.dosagem);
+			
+			if (AtualizarTratamento(tratamento)) {
+//				printf("\nDEBUG: deu certo");
+			}
+		} else {
+			printf("\nERROR");
+		}
+	}
 	
 }
 
-void excluirTratamento() {
+void excluirTratamento() {	
+	int cod;
+	printf("\nDigite o codigo do tratamento: ");
+	scanf("%d", &cod);
 	
+	if (ApagarTratamentoPeloCodigo(cod)) {
+		printf("Tratamento excluido com sucesso.");
+	} else {
+		printf("ERROR");
+	}
 }
 
 int main() {

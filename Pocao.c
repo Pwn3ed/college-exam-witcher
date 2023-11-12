@@ -84,9 +84,6 @@ int ApagarPocaoPeloCodigo(int codigo) {
 		if (pocoes[i].codigo == codigo) {
 			for (int j = i; j <qtdPocoes-1; j++) {
 				pocoes[j] = pocoes[j+1];
-//				pocoes[j].codigo = pocoes[j+1].codigo;
-//				strcpy(pocoes[j].nome, pocoes[j+1].nome);
-//				strcpy(pocoes[j].tipo, pocoes[j+1].tipo);
 			}
 			qtdPocoes--;
 			return 1;

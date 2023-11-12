@@ -43,8 +43,13 @@ int EncerraBruxos() {
 
 int SalvarBruxo(Bruxo b) {
 	if (qtdBruxos == MAX_BRUXOS) {
-		MAX_BRUXOS += 5;
+		MAX_BRUXOS += 2;
+		printf("\nDEBUG: aumentando +2 do bruxos");
 		bruxos = (Bruxo*) realloc(bruxos, MAX_BRUXOS * sizeof(Bruxo));
+		if (bruxos == NULL) {
+			MAX_BRUXOS -=2;
+			return 0;
+		}
 	}
 	if (qtdBruxos < MAX_BRUXOS) {
 		bruxos[qtdBruxos] = b;
@@ -89,11 +94,22 @@ int ApagarBruxoPeloCodigo(int codigo) {
 		if (bruxos[i].codigo == codigo) {
 			for (int j = i; j <qtdBruxos-1; j++) {
 				bruxos[j] = bruxos[j+1];
+				qtdBruxos--;
 			}
-			qtdBruxos--;
+			
+			if (qtdBruxos * 100 / MAX_BRUXOS < 40) {
+//			if () {
+				MAX_BRUXOS -=2;
+				printf("\nDEBUG: diminuindo -2 do bruxos");
+				bruxos = (Bruxo*) realloc(bruxos, MAX_BRUXOS * sizeof(Bruxo));
+			}
+			
 			return 1;
 		}
 	}
+	
+
+	
 	return 0;
 }
 

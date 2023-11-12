@@ -3,16 +3,9 @@
 
 Tratamento *tratamentos = NULL;
 int MAX_TRATAMENTOS = 5;
-int qtdTratamentos = 0; //DEFAULT
-//int qtdTratamentos = 3; //DEBUG
+//int qtdTratamentos = 0; //DEFAULT
+int qtdTratamentos = 3; //DEBUG
 
-
-// "1. Listar tratamentos do paciente"
-// "2. Listar tratamentos do bruxo"
-// "3. Iniciar tratamento"
-// "4. Ampliar tratamento"
-// "5. Excluir tratamento"
-// "0. Sair"
 
 int InicializarTratamentos() {
 	
@@ -22,26 +15,26 @@ int InicializarTratamentos() {
 	}
 	
 // DEBUG
-//	tratamentos[0].codigo = 0;
-//	tratamentos[0].bruxo = 0;
-//	tratamentos[0].paciente = 0;
-//	tratamentos[0].medicamento = 0;
-//	tratamentos[0].dias = 0;
-//	tratamentos[0].dosagem = 0;
-//
-//	tratamentos[1].codigo = 1;
-//	tratamentos[1].bruxo = 1;
-//	tratamentos[1].paciente = 1;
-//	tratamentos[1].medicamento = 1;
-//	tratamentos[1].dias = 1;
-//	tratamentos[1].dosagem = 1;
-//	
-//	tratamentos[2].codigo = 2;
-//	tratamentos[2].bruxo = 2;
-//	tratamentos[2].paciente = 2;
-//	tratamentos[2].medicamento = 2;
-//	tratamentos[2].dias = 2;
-//	tratamentos[2].dosagem = 2;
+	tratamentos[0].codigo = 0;
+	tratamentos[0].bruxo = 0;
+	tratamentos[0].paciente = 0;
+	tratamentos[0].medicamento = 0;
+	tratamentos[0].dias = 0;
+	tratamentos[0].dosagem = 0;
+
+	tratamentos[1].codigo = 1;
+	tratamentos[1].bruxo = 1;
+	tratamentos[1].paciente = 1;
+	tratamentos[1].medicamento = 1;
+	tratamentos[1].dias = 1;
+	tratamentos[1].dosagem = 1;
+	
+	tratamentos[2].codigo = 2;
+	tratamentos[2].bruxo = 2;
+	tratamentos[2].paciente = 2;
+	tratamentos[2].medicamento = 2;
+	tratamentos[2].dias = 2;
+	tratamentos[2].dosagem = 2;
 // DEBUG
 	
 	return 1;
@@ -90,11 +83,26 @@ int ObterTratamentoPeloCodigo(int codigo, Tratamento *t) {
 }
 
 int AtualizarTratamento(Tratamento t) {
-	
+	for (int i = 0; i < qtdTratamentos; i++) {
+		if (tratamentos[i].codigo == t.codigo) {
+			tratamentos[i] = t;
+			return 1;
+		}
+	}
+	return 0;
 }
 
 int ApagarTratamentoPeloCodigo(int codigo) {
-	
+	for (int i = 0; i < qtdTratamentos; i++) {
+		if (tratamentos[i].codigo == codigo) {
+			for (int j = i; j <qtdTratamentos-1; j++) {
+				tratamentos[j] = tratamentos[j+1];
+			}
+			qtdTratamentos--;
+			return 1;
+		}
+	}
+	return 0;
 }
 
 
