@@ -80,7 +80,7 @@ void listarBruxos() {
 }
 
 void excluirBruxo() {
-	listarBruxos();
+//	listarBruxos();
 	
 	int cod;
 	printf("\nDigite o codigo do bruxo: ");
@@ -94,7 +94,7 @@ void excluirBruxo() {
 }
 
 void alterarBruxo() {
-	listarBruxos();
+//	listarBruxos();
 	
 	Bruxo bruxo;
 	printf("\nDigite o codigo do bruxo a ser alterado: ");
@@ -150,7 +150,7 @@ void listarPacientes() {
 }
 
 void excluirPaciente() {
-	listarPacientes();
+//	listarPacientes();
 	
 	int cod;
 	printf("\nDigite o codigo do paciente: ");
@@ -164,7 +164,7 @@ void excluirPaciente() {
 }
 
 void alterarPaciente() {
-	listarPacientes();
+//	listarPacientes();
 	
 	Paciente paciente;
 	printf("\nDigite o codigo do paciente a ser alterado: ");
@@ -235,7 +235,7 @@ void listarPocoes() {
 }
 
 void excluirPocao() {
-	listarPocoes();
+//	listarPocoes();
 	
 	int cod;
 	printf("\nDigite o codigo da pocao: ");
@@ -249,7 +249,7 @@ void excluirPocao() {
 }
 
 void alterarPocao() {
-	listarPocoes();
+//	listarPocoes();
 	
 	Pocao pocao;
 	printf("\nDigite o codigo da pocao a ser alterada: ");

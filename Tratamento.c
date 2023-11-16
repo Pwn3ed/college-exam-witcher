@@ -3,8 +3,8 @@
 
 Tratamento *tratamentos = NULL;
 int MAX_TRATAMENTOS = 5;
-//int qtdTratamentos = 0; //DEFAULT
-int qtdTratamentos = 3; //DEBUG
+int qtdTratamentos = 0; //DEFAULT
+//int qtdTratamentos = 3; //DEBUG
 
 
 int InicializarTratamentos() {
@@ -14,28 +14,18 @@ int InicializarTratamentos() {
 		return 0;
 	}
 	
-// DEBUG
-	tratamentos[0].codigo = 0;
-	tratamentos[0].bruxo = 0;
-	tratamentos[0].paciente = 0;
-	tratamentos[0].medicamento = 0;
-	tratamentos[0].dias = 0;
-	tratamentos[0].dosagem = 0;
+	// DEBUG
 
-	tratamentos[1].codigo = 1;
-	tratamentos[1].bruxo = 1;
-	tratamentos[1].paciente = 1;
-	tratamentos[1].medicamento = 1;
-	tratamentos[1].dias = 1;
-	tratamentos[1].dosagem = 1;
-	
-	tratamentos[2].codigo = 2;
-	tratamentos[2].bruxo = 2;
-	tratamentos[2].paciente = 2;
-	tratamentos[2].medicamento = 2;
-	tratamentos[2].dias = 2;
-	tratamentos[2].dosagem = 2;
-// DEBUG
+//	for (int i = 0; i < MAX_TRATAMENTOS; i++) {
+//		tratamentos[i].codigo = i;
+//		tratamentos[i].bruxo = i;
+//		tratamentos[i].paciente = i;
+//		tratamentos[i].medicamento = i;
+//		tratamentos[i].dias = i;
+//		tratamentos[i].dosagem = i;
+//	}
+
+	// DEBUG
 	
 	return 1;
 }
@@ -48,15 +38,19 @@ int salvarTratamento(Tratamento t) {
 	if (qtdTratamentos == MAX_TRATAMENTOS) {
 		MAX_TRATAMENTOS += 5;
 		tratamentos = (Tratamento*) realloc(tratamentos, MAX_TRATAMENTOS * sizeof(Tratamento));
+		if (tratamentos == NULL) {
+			MAX_TRATAMENTOS -= 5;
+			return 0;
+		}
 	}
 	if (qtdTratamentos < MAX_TRATAMENTOS) {
 		tratamentos[qtdTratamentos] = t;
-		
 		qtdTratamentos++;
 		
-		for (int i = 0; i < qtdTratamentos; i++) {
-			printf("\nDEBUG: %d, %d, %d, %d, %d, %d", tratamentos[i].codigo, tratamentos[i].bruxo, tratamentos[i].paciente, tratamentos[i].medicamento, tratamentos[i].dias, tratamentos[i].dosagem);
-		}
+	// DEBUG
+//		for (int i = 0; i < qtdTratamentos; i++) {
+//			printf("\nDEBUG: %d, %d, %d, %d, %d, %d", tratamentos[i].codigo, tratamentos[i].bruxo, tratamentos[i].paciente, tratamentos[i].medicamento, tratamentos[i].dias, tratamentos[i].dosagem);
+//		}
 		
 		return 1;	
 	}
@@ -99,12 +93,17 @@ int ApagarTratamentoPeloCodigo(int codigo) {
 				tratamentos[j] = tratamentos[j+1];
 			}
 			qtdTratamentos--;
+			if (MAX_TRATAMENTOS != 4 && qtdTratamentos < MAX_TRATAMENTOS -4) {
+				MAX_TRATAMENTOS -= 4;
+				tratamentos = (Tratamento*) realloc(tratamentos, MAX_TRATAMENTOS * sizeof(Tratamento));
+				if (tratamentos == NULL) {
+					MAX_TRATAMENTOS += 4;
+					return 0;
+				}
+			}
 			return 1;
 		}
 	}
 	return 0;
 }
-
-
-
 

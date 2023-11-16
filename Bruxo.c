@@ -4,8 +4,8 @@
 
 Bruxo* bruxos = NULL;
 int MAX_BRUXOS = 5;
-// int qtdBruxos = 0; //DEFAULT
-int qtdBruxos = 3; //DEBUG
+int qtdBruxos = 0; //DEFAULT
+//int qtdBruxos = 3; //DEBUG
 
 int InicializarBruxos() {
 	bruxos = (Bruxo*) malloc(MAX_BRUXOS * sizeof(Bruxo));
@@ -14,25 +14,15 @@ int InicializarBruxos() {
 	}
 	
 	// DEBUG
-	bruxos[0].codigo = 0;
-	strcpy(bruxos[0].nome, "Diego");
-	strcpy(bruxos[0].especialidade, "Bruxo");
-	
-	bruxos[1].codigo = 1;
-	strcpy(bruxos[1].nome, "Leonardo");
-	strcpy(bruxos[1].especialidade, "Mago");
-	
-	bruxos[2].codigo = 2;
-	strcpy(bruxos[2].nome, "Pablo");
-	strcpy(bruxos[2].especialidade, "Deus");
+
+//	for (int i = 0; i < MAX_BRUXOS; i++) {
+//		bruxos[i].codigo = i;
+//		strcpy(bruxos[i].nome, "Bruxo");
+//		strcpy(bruxos[i].especialidade, "Especialidade");
+//	}
+
 	// DEBUG
 	
-	// zerar array
-//	for (int i = 0; i < MAX_BRUXOS; i++){ 
-//		bruxos[i].codigo = 0;
-//		strcpy(bruxos[i].nome, "");
-//		strcpy(bruxos[i].especialidade, "");
-//	}
 	return 1;
 }
 
@@ -43,17 +33,15 @@ int EncerraBruxos() {
 
 int SalvarBruxo(Bruxo b) {
 	if (qtdBruxos == MAX_BRUXOS) {
-		MAX_BRUXOS += 2;
-		printf("\nDEBUG: aumentando +2 do bruxos");
+		MAX_BRUXOS += 5;
 		bruxos = (Bruxo*) realloc(bruxos, MAX_BRUXOS * sizeof(Bruxo));
 		if (bruxos == NULL) {
-			MAX_BRUXOS -=2;
+			MAX_BRUXOS -= 5;
 			return 0;
 		}
 	}
 	if (qtdBruxos < MAX_BRUXOS) {
 		bruxos[qtdBruxos] = b;
-		
 		qtdBruxos++;
 		return 1;	
 	}
@@ -94,22 +82,19 @@ int ApagarBruxoPeloCodigo(int codigo) {
 		if (bruxos[i].codigo == codigo) {
 			for (int j = i; j <qtdBruxos-1; j++) {
 				bruxos[j] = bruxos[j+1];
-				qtdBruxos--;
 			}
-			
-			if (qtdBruxos * 100 / MAX_BRUXOS < 40) {
-//			if () {
-				MAX_BRUXOS -=2;
-				printf("\nDEBUG: diminuindo -2 do bruxos");
+			qtdBruxos--;
+			if (MAX_BRUXOS != 4 && qtdBruxos < MAX_BRUXOS -4) {
+				MAX_BRUXOS -= 4;
 				bruxos = (Bruxo*) realloc(bruxos, MAX_BRUXOS * sizeof(Bruxo));
+				if (bruxos == NULL) {
+					MAX_BRUXOS += 4;
+					return 0;
+				}
 			}
-			
 			return 1;
 		}
 	}
-	
-
-	
 	return 0;
 }
 

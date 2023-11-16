@@ -4,8 +4,8 @@
 
 Pocao* pocoes = NULL;
 int MAX_POCOES = 5;
-// int qtdPocoes = 0; //DEFAULT
-int qtdPocoes = 3; //DEBUG
+int qtdPocoes = 0; //DEFAULT
+//int qtdPocoes = 3; //DEBUG
 
 int InicializarPocoes() {
 	pocoes = (Pocao*) malloc(MAX_POCOES * sizeof(Pocao));
@@ -14,17 +14,13 @@ int InicializarPocoes() {
 	}
 	
 	// DEBUG
-	pocoes[0].codigo = 0;
-	strcpy(pocoes[0].nome, "Cura");
-	strcpy(pocoes[0].tipo, "Liquido");
 	
-	pocoes[1].codigo = 1;
-	strcpy(pocoes[1].nome, "Sono");
-	strcpy(pocoes[1].tipo, "Comprimido");
-	
-	pocoes[2].codigo = 2;
-	strcpy(pocoes[2].nome, "Vigor");
-	strcpy(pocoes[2].tipo, "Comprimido");
+//	for (int i = 0; i < qtdPocoes; i++) {
+//		pocoes[i].codigo = i;
+//		strcpy(pocoes[i].nome, "Pocao");
+//		strcpy(pocoes[i].tipo, "Tipo");
+//	}
+
 	// DEBUG
 
 	return 1;
@@ -39,10 +35,13 @@ int SalvarPocao(Pocao p) {
 	if (qtdPocoes == MAX_POCOES) {
 		MAX_POCOES += 5;
 		pocoes = (Pocao*) realloc(pocoes, MAX_POCOES * sizeof(Pocao));
+		if (pocoes == NULL) {
+			MAX_POCOES -= 5;
+			return 0;
+		}
 	}
 	if (qtdPocoes < MAX_POCOES) {
 		pocoes[qtdPocoes] = p;
-		
 		qtdPocoes++;
 		return 1;	
 	}
@@ -65,7 +64,6 @@ int ObterPocaoPeloCodigo(int codigo, Pocao* p) {
 			return 1;
 		}
 	}
-	
 	return 0;
 }
 
@@ -86,6 +84,14 @@ int ApagarPocaoPeloCodigo(int codigo) {
 				pocoes[j] = pocoes[j+1];
 			}
 			qtdPocoes--;
+			if (MAX_POCOES != 4 && qtdPocoes < MAX_POCOES -4) {
+				MAX_POCOES -= 4;
+				pocoes = (Pocao*) realloc(pocoes, MAX_POCOES * sizeof(Pocao));
+				if (pocoes == NULL) {
+					MAX_POCOES += 4;
+					return 0;
+				}
+			}
 			return 1;
 		}
 	}
