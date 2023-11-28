@@ -19,7 +19,7 @@ int InicializarBruxos() {
 //		bruxos[i].codigo = i;
 //		strcpy(bruxos[i].nome, "Bruxo");
 //		strcpy(bruxos[i].especialidade, "Especialidade");
-//	}
+	}
 
 	// DEBUG
 	

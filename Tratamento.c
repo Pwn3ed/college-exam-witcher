@@ -35,6 +35,11 @@ int EncerraTratamentos() {
 }
 
 int salvarTratamento(Tratamento t) {
+	for (int i = 0; i < qtdTratamentos; i++) {
+		if (t.bruxo == tratamentos[i].bruxo || t.paciente == tratamentos[i].paciente || t.medicamento == tratamentos[i].medicamento) {
+			return 0;
+		}
+	}
 	if (qtdTratamentos == MAX_TRATAMENTOS) {
 		MAX_TRATAMENTOS += 5;
 		tratamentos = (Tratamento*) realloc(tratamentos, MAX_TRATAMENTOS * sizeof(Tratamento));

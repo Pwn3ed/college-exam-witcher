@@ -4,8 +4,8 @@
 
 Paciente* pacientes = NULL;
 int MAX_PACIENTES = 5;
-//int qtdPacientes = 0; //DEFAULT
-int qtdPacientes = 3; //DEBUG
+int qtdPacientes = 0; //DEFAULT
+//int qtdPacientes = 3; //DEBUG
 
 int InicializarPacientes() {
 	pacientes = (Paciente*) malloc(MAX_PACIENTES * sizeof(Paciente));
@@ -15,12 +15,12 @@ int InicializarPacientes() {
 	
 	// DEBUG
 	
-	for (int i = 0; i < MAX_PACIENTES; i ++) {
-		pacientes[i].codigo = i;
-		strcpy(pacientes[i].nome, "Paciente");
-		pacientes[i].idade = i;
-		pacientes[i].altura = i;
-	}
+//	for (int i = 0; i < MAX_PACIENTES; i ++) {
+//		pacientes[i].codigo = i;
+//		strcpy(pacientes[i].nome, "Paciente");
+//		pacientes[i].idade = i;
+//		pacientes[i].altura = i;
+//	}
 	
 	// DEBUG
 

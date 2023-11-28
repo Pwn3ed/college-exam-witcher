@@ -12,9 +12,6 @@
 // scanf completo para string: "%[^\n]s"
 // fflush(stdin)
 
-
-
-
 void menu() {
     printf("\n=== Clinica Geralt de Rivia ===\n");
     printf("\n");
@@ -293,22 +290,16 @@ void listarTratamentosDoPaciente() {
 			Paciente paciente;	
 			if (ObterPacientePeloCodigo(tratamento.paciente, &paciente)) {
 	//			printf("\nDEBUG: %s", paciente.nome);
-			} else {
-				printf("\nerror");
 			}
 			
 			Bruxo bruxo;	
 			if (ObterBruxoPeloCodigo(tratamento.bruxo, &bruxo)) {
 	//			printf("\nDEBUG: %s", bruxo.nome);
-			} else {
-				printf("\nerror");
 			}
 			
 			Pocao pocao;
 			if (ObterPocaoPeloCodigo(tratamento.medicamento, &pocao)) {
 	//			printf("\nDEBUG: %s", pocao.nome);
-			} else {
-				printf("\nerror");
 			}
 			
 			printf("\nOla %s! O bruxo %s receitou a pocao %s em dosagens de %d vezes por %d dias.", paciente.nome, bruxo.nome, pocao.nome, tratamento.dosagem, tratamento.dias);
@@ -388,12 +379,19 @@ void iniciarTratamento() {
 	fflush(stdin);
 	scanf("%d", &tratamento.dosagem);
 	
-	if (salvarTratamento(tratamento)) {
-//		printf("\nDEBUG: Deu certo!!!");
-	} else {
-		printf("\nerror");
+	Bruxo bruxo;
+	ObterBruxoPeloCodigo(tratamento.bruxo, &bruxo);
+	Paciente paciente;
+	ObterPacientePeloCodigo(tratamento.paciente, &paciente);
+	Pocao pocao;
+	ObterPocaoPeloCodigo(tratamento.medicamento, &pocao);
+	if (tratamento.bruxo != bruxo.codigo || tratamento.paciente != paciente.codigo || tratamento.medicamento != pocao.codigo) {
+		if (salvarTratamento(tratamento)) {
+	//		printf("\nDEBUG: Deu certo!!!");
+		} else {
+			printf("\nerror");
+		}
 	}
-	
 }
 
 void ampliarTratamento() {
