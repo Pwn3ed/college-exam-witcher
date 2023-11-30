@@ -1,17 +1,25 @@
 #include "Bruxo.h"
 #include <string.h>
+#include <stdio.h>
 
-
-Bruxo* bruxos = NULL;
+FILE *ptrBruxos = NULL;
+Bruxo* bruxos = NULL; //V2
 int MAX_BRUXOS = 5;
 int qtdBruxos = 0; //DEFAULT
 //int qtdBruxos = 3; //DEBUG
 
 int InicializarBruxos() {
-	bruxos = (Bruxo*) malloc(MAX_BRUXOS * sizeof(Bruxo));
-	if (bruxos == NULL) {
+	ptrBruxos = fopen("bruxos.salve", "w");
+	
+	if (ptrBruxos == NULL) {
 		return 0;
 	}
+	
+	// V2
+//	bruxos = (Bruxo*) malloc(MAX_BRUXOS * sizeof(Bruxo));
+//	if (bruxos == NULL) {
+//		return 0;
+//	}
 	
 	// DEBUG
 
@@ -19,7 +27,7 @@ int InicializarBruxos() {
 //		bruxos[i].codigo = i;
 //		strcpy(bruxos[i].nome, "Bruxo");
 //		strcpy(bruxos[i].especialidade, "Especialidade");
-	}
+//	}
 
 	// DEBUG
 	
@@ -27,7 +35,7 @@ int InicializarBruxos() {
 }
 
 int EncerraBruxos() {
-	free(bruxos);
+	fclose(ptrBruxos);
 	return 1;
 }
 
