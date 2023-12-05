@@ -2,14 +2,14 @@
 #include <string.h>
 #include <stdio.h>
 
-FILE *ptrBruxos = NULL;
+FILE *ptrBruxos = NULL; //V3
 Bruxo* bruxos = NULL; //V2
 int MAX_BRUXOS = 5;
 int qtdBruxos = 0; //DEFAULT
 //int qtdBruxos = 3; //DEBUG
 
 int InicializarBruxos() {
-	ptrBruxos = fopen("bruxos.salve", "w");
+	ptrBruxos = fopen("bruxos.bin", "wb");
 	
 	if (ptrBruxos == NULL) {
 		return 0;
@@ -40,19 +40,28 @@ int EncerraBruxos() {
 }
 
 int SalvarBruxo(Bruxo b) {
-	if (qtdBruxos == MAX_BRUXOS) {
-		MAX_BRUXOS += 5;
-		bruxos = (Bruxo*) realloc(bruxos, MAX_BRUXOS * sizeof(Bruxo));
-		if (bruxos == NULL) {
-			MAX_BRUXOS -= 5;
-			return 0;
-		}
-	}
+//	InicializarBruxos();
 	if (qtdBruxos < MAX_BRUXOS) {
-		bruxos[qtdBruxos] = b;
+		fwrite(&b, sizeof(Bruxo), 1, ptrBruxos);
+		
 		qtdBruxos++;
-		return 1;	
+//		EncerraBruxos();
+		return 1;
 	}
+	
+//	if (qtdBruxos == MAX_BRUXOS) {
+//		MAX_BRUXOS += 5;
+//		bruxos = (Bruxo*) realloc(bruxos, MAX_BRUXOS * sizeof(Bruxo));
+//		if (bruxos == NULL) {
+//			MAX_BRUXOS -= 5;
+//			return 0;
+//		}
+//	}
+//	if (qtdBruxos < MAX_BRUXOS) {
+//		bruxos[qtdBruxos] = b;
+//		qtdBruxos++;
+//		return 1;	
+//	}
 	return 0;
 }
 
@@ -61,7 +70,18 @@ int QuantidadeBruxos() {
 }
 
 int ObterBruxoPeloIndice(int indice, Bruxo* b) {
-	*b = bruxos[indice];
+//	InicializarBruxos();
+	
+	Bruxo bruxo;
+	
+	fseek(ptrBruxos, indice * sizeof(Bruxo), SEEK_SET);
+	fread(&bruxo, sizeof(Bruxo), 1, ptrBruxos);
+	
+	printf("DEBUG bruxo: %d", bruxo);
+	*b = bruxo;
+	
+//	*b = bruxos[indice];
+//	EncerraBruxos();
 	return 1;
 }
 

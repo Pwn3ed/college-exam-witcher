@@ -73,6 +73,7 @@ void listarBruxos() {
 	for (int i = 0; i < qtd; i++) {	
 		ObterBruxoPeloIndice(i, &bruxo);
 		printf("\nBruxo %d - Codigo: %d | Nome: %s | Especialidade: %s", i, bruxo->codigo, bruxo->nome, bruxo->especialidade);
+//		printf()
 	}
 }
 
