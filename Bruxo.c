@@ -9,11 +9,22 @@ int qtdBruxos = 0; //DEFAULT
 //int qtdBruxos = 3; //DEBUG
 
 int InicializarBruxos() {
-	ptrBruxos = fopen("bruxos.bin", "wb");
+	
+	ptrBruxos = fopen("bruxos.bin", "r+b");
+	
+	if (ptrBruxos == NULL) {
+		ptrBruxos = fopen("bruxos.bin", "w+b");
+	}
 	
 	if (ptrBruxos == NULL) {
 		return 0;
 	}
+	
+	fseek(ptrBruxos, 0, SEEK_END);
+	
+	qtdBruxos = ftell(ptrBruxos) / sizeof(Bruxo);
+	
+	rewind(ptrBruxos);
 	
 	// V2
 //	bruxos = (Bruxo*) malloc(MAX_BRUXOS * sizeof(Bruxo));
@@ -40,12 +51,11 @@ int EncerraBruxos() {
 }
 
 int SalvarBruxo(Bruxo b) {
-	InicializarBruxos();
 	if (qtdBruxos < MAX_BRUXOS) {
+		fseek(ptrBruxos, 0, SEEK_END);
 		fwrite(&b, sizeof(Bruxo), 1, ptrBruxos);
 		
 		qtdBruxos++;
-		EncerraBruxos();
 		return 1;
 	}
 	
@@ -71,28 +81,46 @@ int QuantidadeBruxos() {
 
 int ObterBruxoPeloIndice(int indice, Bruxo* b) {
 //	InicializarBruxos();
-	FILE *temp_ptrBruxos = fopen("bruxos.bin", "rb");
+//	FILE *temp_ptrBruxos = fopen("bruxos.bin", "rb");
 	
 	Bruxo temp_bruxo;
 	
-	fseek(temp_ptrBruxos, indice * sizeof(Bruxo), SEEK_SET);
-	fread(&temp_bruxo, sizeof(Bruxo), 1, temp_ptrBruxos);
+	rewind(ptrBruxos);
+	
+//	if (indice != 0)
+	fseek(ptrBruxos, indice * sizeof(Bruxo), SEEK_SET);
+	
+	fread(&temp_bruxo, sizeof(Bruxo), 1, ptrBruxos);
 	
 	*b = temp_bruxo;
 	
 //	*b = bruxos[indice];
-	EncerraBruxos();
+//	EncerraBruxos()1;
 	return 1;
 }
 
 int ObterBruxoPeloCodigo(int codigo, Bruxo* b) {
+	
+	rewind(ptrBruxos);
+	
+	Bruxo temp_bruxo;
+	
 	for (int i = 0; i < qtdBruxos; i++) {
-		if (bruxos[i].codigo == codigo) {
-			*b = bruxos[i];
+		fread(&temp_bruxo, sizeof(Bruxo), 1, ptrBruxos);
+		
+		if (codigo == temp_bruxo.codigo) {
+			*b = temp_bruxo;
 			return 1;
 		}
 	}
-	return 0;
+	
+//	for (int i = 0; i < qtdBruxos; i++) {
+//		if (bruxos[i].codigo == codigo) {
+//			*b = bruxos[i];
+//			return 1;
+//		}
+//	}
+//	return 0;
 }
 
 int AtualizarBruxo(Bruxo b) {
@@ -106,24 +134,41 @@ int AtualizarBruxo(Bruxo b) {
 }
 
 int ApagarBruxoPeloCodigo(int codigo) {
-	for (int i = 0; i < qtdBruxos; i++) {
-		if (bruxos[i].codigo == codigo) {
-			for (int j = i; j <qtdBruxos-1; j++) {
-				bruxos[j] = bruxos[j+1];
-			}
-			qtdBruxos--;
-			if (MAX_BRUXOS != 4 && qtdBruxos < MAX_BRUXOS -4) {
-				MAX_BRUXOS -= 4;
-				bruxos = (Bruxo*) realloc(bruxos, MAX_BRUXOS * sizeof(Bruxo));
-				if (bruxos == NULL) {
-					MAX_BRUXOS += 4;
-					return 0;
-				}
-			}
-			return 1;
-		}
+	
+	FILE *temp_ptrBruxos;
+	Bruxo temp_bruxo;
+	rewind(ptrBruxos);
+	
+	temp_ptrBruxos = fopen("temp.bin", "w+b");
+	
+	if (temp_ptrBruxos == NULL {
+		return 0;
 	}
-	return 0;
+	
+	for (int i = 0; i < qtdBruxos, i++) {
+		fread(&temp_ptrBruxos, sizeof(Bruxo), 1, ptrBruxos);
+		
+		if (temp_bruxo.codigo == )
+	}
+	
+//	for (int i = 0; i < qtdBruxos; i++) {
+//		if (bruxos[i].codigo == codigo) {
+//			for (int j = i; j <qtdBruxos-1; j++) {
+//				bruxos[j] = bruxos[j+1];
+//			}
+//			qtdBruxos--;
+//			if (MAX_BRUXOS != 4 && qtdBruxos < MAX_BRUXOS -4) {
+//				MAX_BRUXOS -= 4;
+//				bruxos = (Bruxo*) realloc(bruxos, MAX_BRUXOS * sizeof(Bruxo));
+//				if (bruxos == NULL) {
+//					MAX_BRUXOS += 4;
+//					return 0;
+//				}
+//			}
+//			return 1;
+//		}
+//	}
+//	return 0;
 }
 
 int ApagarBruxoPeloNome(char* nome) {
