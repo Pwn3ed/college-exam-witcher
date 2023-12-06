@@ -40,12 +40,12 @@ int EncerraBruxos() {
 }
 
 int SalvarBruxo(Bruxo b) {
-//	InicializarBruxos();
+	InicializarBruxos();
 	if (qtdBruxos < MAX_BRUXOS) {
 		fwrite(&b, sizeof(Bruxo), 1, ptrBruxos);
 		
 		qtdBruxos++;
-//		EncerraBruxos();
+		EncerraBruxos();
 		return 1;
 	}
 	
@@ -71,17 +71,17 @@ int QuantidadeBruxos() {
 
 int ObterBruxoPeloIndice(int indice, Bruxo* b) {
 //	InicializarBruxos();
+	FILE *temp_ptrBruxos = fopen("bruxos.bin", "rb");
 	
-	Bruxo bruxo;
+	Bruxo temp_bruxo;
 	
-	fseek(ptrBruxos, indice * sizeof(Bruxo), SEEK_SET);
-	fread(&bruxo, sizeof(Bruxo), 1, ptrBruxos);
+	fseek(temp_ptrBruxos, indice * sizeof(Bruxo), SEEK_SET);
+	fread(&temp_bruxo, sizeof(Bruxo), 1, temp_ptrBruxos);
 	
-	printf("DEBUG bruxo: %d", bruxo);
-	*b = bruxo;
+	*b = temp_bruxo;
 	
 //	*b = bruxos[indice];
-//	EncerraBruxos();
+	EncerraBruxos();
 	return 1;
 }
 
