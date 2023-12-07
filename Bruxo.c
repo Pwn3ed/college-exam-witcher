@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 
-FILE *ptrBruxos = NULL; //V3
+FILE *ptrBruxos = NULL;
 Bruxo* bruxos = NULL; //V2
 int MAX_BRUXOS = 5;
 int qtdBruxos = 0; //DEFAULT
@@ -141,34 +141,23 @@ int ApagarBruxoPeloCodigo(int codigo) {
 	
 	temp_ptrBruxos = fopen("temp.bin", "w+b");
 	
-	if (temp_ptrBruxos == NULL {
+	if (temp_ptrBruxos == NULL) {
 		return 0;
 	}
 	
-	for (int i = 0; i < qtdBruxos, i++) {
-		fread(&temp_ptrBruxos, sizeof(Bruxo), 1, ptrBruxos);
+	for (int i = 0; i < qtdBruxos; i++) {
+		fread(&temp_bruxo, sizeof(Bruxo), 1, ptrBruxos);
 		
-		if (temp_bruxo.codigo == )
+		if (codigo != temp_bruxo.codigo) {
+			fwrite(&temp_bruxo, sizeof(Bruxo), 1, temp_ptrBruxos);
+		}
 	}
+	ptrBruxos = temp_ptrBruxos;
+	qtdBruxos--;
 	
-//	for (int i = 0; i < qtdBruxos; i++) {
-//		if (bruxos[i].codigo == codigo) {
-//			for (int j = i; j <qtdBruxos-1; j++) {
-//				bruxos[j] = bruxos[j+1];
-//			}
-//			qtdBruxos--;
-//			if (MAX_BRUXOS != 4 && qtdBruxos < MAX_BRUXOS -4) {
-//				MAX_BRUXOS -= 4;
-//				bruxos = (Bruxo*) realloc(bruxos, MAX_BRUXOS * sizeof(Bruxo));
-//				if (bruxos == NULL) {
-//					MAX_BRUXOS += 4;
-//					return 0;
-//				}
-//			}
-//			return 1;
-//		}
-//	}
-//	return 0;
+	fclose(temp_ptrBruxos);
+		
+	return 1;
 }
 
 int ApagarBruxoPeloNome(char* nome) {

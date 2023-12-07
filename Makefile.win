@@ -6,9 +6,9 @@ CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
 OBJ      = main.o Bruxo.o Paciente.o Pocao.o Tratamento.o
 LINKOBJ  = main.o Bruxo.o Paciente.o Pocao.o Tratamento.o
-LIBS     = -L"C:/ProgramFiles/Dev-Cpp/MinGW64/lib" -L"C:/ProgramFiles/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
-INCS     = -I"C:/ProgramFiles/Dev-Cpp/MinGW64/include" -I"C:/ProgramFiles/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/ProgramFiles/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
-CXXINCS  = -I"C:/ProgramFiles/Dev-Cpp/MinGW64/include" -I"C:/ProgramFiles/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/ProgramFiles/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/ProgramFiles/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+LIBS     = -L"F:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"F:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
+INCS     = -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"F:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
 BIN      = Projeto1.exe
 CXXFLAGS = $(CXXINCS) -std=c99 -g3
 CFLAGS   = $(INCS) -std=c99 -g3
