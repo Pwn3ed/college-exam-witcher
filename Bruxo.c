@@ -3,12 +3,11 @@
 #include <stdio.h>
 
 FILE *ptrBruxos = NULL;
-Bruxo* bruxos = NULL; //V2
-int MAX_BRUXOS = 5;
+//Bruxo* bruxos = NULL; //V2
+int MAX_BRUXOS = 50;
 int qtdBruxos = 0; //DEFAULT
 
 int InicializarBruxos() {
-	
 	ptrBruxos = fopen("bruxos.bin", "r+b");
 	
 	if (ptrBruxos == NULL) {
@@ -20,9 +19,7 @@ int InicializarBruxos() {
 	}
 	
 	fseek(ptrBruxos, 0, SEEK_END);
-	
 	qtdBruxos = ftell(ptrBruxos) / sizeof(Bruxo);
-	
 	rewind(ptrBruxos);
 		
 	return 1;
@@ -30,6 +27,7 @@ int InicializarBruxos() {
 
 int EncerraBruxos() {
 	fclose(ptrBruxos);
+	
 	return 1;
 }
 
@@ -49,23 +47,17 @@ int QuantidadeBruxos() {
 }
 
 int ObterBruxoPeloIndice(int indice, Bruxo* b) {
-	
 	Bruxo temp_bruxo;
-	
 	rewind(ptrBruxos);
-	
 	fseek(ptrBruxos, indice * sizeof(Bruxo), SEEK_SET);
-	
 	fread(&temp_bruxo, sizeof(Bruxo), 1, ptrBruxos);
-	
 	*b = temp_bruxo;
+	
 	return 1;
 }
 
 int ObterBruxoPeloCodigo(int codigo, Bruxo* b) {
-	
 	rewind(ptrBruxos);
-	
 	Bruxo temp_bruxo;
 	
 	for (int i = 0; i < qtdBruxos; i++) {
@@ -79,7 +71,6 @@ int ObterBruxoPeloCodigo(int codigo, Bruxo* b) {
 }
 
 int AtualizarBruxo(Bruxo b) {
-	
 	rewind(ptrBruxos);
 	Bruxo bruxo;
 	
@@ -91,16 +82,13 @@ int AtualizarBruxo(Bruxo b) {
 			return 1;
 		}
 	}
-	
 	return 0;
 }
 
 int ApagarBruxoPeloCodigo(int codigo) {
-	
 	FILE *temp_ptrBruxos;
 	Bruxo temp_bruxo;
 	rewind(ptrBruxos);
-	
 	temp_ptrBruxos = fopen("temp.bin", "w+b");
 	
 	if (temp_ptrBruxos == NULL) {
@@ -126,7 +114,6 @@ int ApagarBruxoPeloCodigo(int codigo) {
 	}
 	
 	qtdBruxos--;
-		
 	return 1;
 }
 
