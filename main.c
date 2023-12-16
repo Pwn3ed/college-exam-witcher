@@ -84,6 +84,17 @@ void excluirBruxo() {
 	printf("\nDigite o codigo do bruxo: ");
 	scanf("%d", &cod);
 	
+	int qtdTratamentos = QuantidadeTratamentos();
+	Tratamento tratamento;
+	for (int i = 0; i < qtdTratamentos; i++) {
+		ObterTratamentoPeloIndice(i, &tratamento);
+		
+		if (tratamento.bruxo == cod) {
+			printf("\Nao foi possivel excluir o bruxo, tratamento em andamento.");
+			return;
+		}
+	}
+	
 	if (ApagarBruxoPeloCodigo(cod)) {
 		printf("\nBruxo excluido com sucesso.");
 	} else {
@@ -153,6 +164,17 @@ void excluirPaciente() {
 	int cod;
 	printf("\nDigite o codigo do paciente: ");
 	scanf("%d", &cod);
+	
+	int qtdTratamentos = QuantidadeTratamentos();
+	Tratamento tratamento;
+	for (int i = 0; i < qtdTratamentos; i++) {
+		ObterTratamentoPeloIndice(i, &tratamento);
+		
+		if (tratamento.paciente == cod) {
+			printf("\Nao foi possivel excluir o paciente, tratamento em andamento.");
+			return;
+		}
+	}
 	
 	if (ApagarPacientePeloCodigo(cod)) {
 		printf("\nPaciente excluido com sucesso.");
@@ -239,6 +261,17 @@ void excluirPocao() {
 	printf("\nDigite o codigo da pocao: ");
 	scanf("%d", &cod);
 	
+	int qtdTratamentos = QuantidadeTratamentos();
+	Tratamento tratamento;
+	for (int i = 0; i < qtdTratamentos; i++) {
+		ObterTratamentoPeloIndice(i, &tratamento);
+		
+		if (tratamento.medicamento == cod) {
+			printf("\Nao foi possivel excluir a pocao, tratamento em andamento.");
+			return;
+		}
+	}
+	
 	if (ApagarPocaoPeloCodigo(cod)) {
 		printf("\nPocao excluido com sucesso.");
 	} else {
@@ -305,7 +338,7 @@ void listarTratamentosDoPaciente() {
 			
 			printf("\nOla %s! O bruxo %s receitou a pocao %s em dosagens de %d vezes por %d dias.", paciente.nome, bruxo.nome, pocao.nome, tratamento.dosagem, tratamento.dias);
 		} else {
-			printf("\nerror");
+//			printf("\nerror");
 		}
 	}
 }
@@ -327,27 +360,21 @@ void listarTratamentosDoBruxo() {
 			Paciente paciente;	
 			if (ObterPacientePeloCodigo(tratamento.paciente, &paciente)) {
 	//			printf("\nDEBUG: %s", paciente.nome);
-			} else {
-				printf("\nerror");
 			}
 			
 			Bruxo bruxo;	
 			if (ObterBruxoPeloCodigo(tratamento.bruxo, &bruxo)) {
 	//			printf("\nDEBUG: %s", bruxo.nome);
-			} else {
-				printf("\nerror");
 			}
 			
 			Pocao pocao;
 			if (ObterPocaoPeloCodigo(tratamento.medicamento, &pocao)) {
 	//			printf("\nDEBUG: %s", pocao.nome);
-			} else {
-				printf("\nerror");
 			}
 			
 			printf("\nTratamento %d - Bruxo: %s | Paciente: %s | Medicamento: %s | Dias: %d | Dosagem: %d | \n", i, bruxo.nome, paciente.nome, pocao.nome, tratamento.dias, tratamento.dosagem);
 		} else {
-			printf("\nerror");
+//			printf("\nerror");
 		}
 	}
 }
@@ -386,12 +413,14 @@ void iniciarTratamento() {
 	ObterPacientePeloCodigo(tratamento.paciente, &paciente);
 	Pocao pocao;
 	ObterPocaoPeloCodigo(tratamento.medicamento, &pocao);
-	if (tratamento.bruxo != bruxo.codigo || tratamento.paciente != paciente.codigo || tratamento.medicamento != pocao.codigo) {
+	if (tratamento.bruxo == bruxo.codigo && tratamento.paciente == paciente.codigo && tratamento.medicamento == pocao.codigo) {
 		if (salvarTratamento(tratamento)) {
-	//		printf("\nDEBUG: Deu certo!!!");
+//			printf("\nDEBUG: Deu certo!!!");
 		} else {
-			printf("\nerror");
+			printf("\nERROR");
 		}
+	} else {
+		printf("\nERROR CODIGO INVALIDO");
 	}
 }
 
@@ -419,7 +448,7 @@ void ampliarTratamento() {
 //				printf("\nDEBUG: deu certo");
 			}
 		} else {
-			printf("\nERROR");
+//			printf("\nERROR");
 		}
 	}
 	
