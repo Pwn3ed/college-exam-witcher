@@ -25,5 +25,4 @@ Run the compiled program:
 
 # License 
 
-@Pwn3ed
-This project is open-source. Feel free to modify and distribute it according to your needs.
+@Pwn3ed: This project is open-source. Feel free to modify and distribute it according to your needs.
